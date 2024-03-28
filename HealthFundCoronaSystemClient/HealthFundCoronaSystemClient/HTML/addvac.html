@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vaccination Details</title>
+    <style>
+        body {
+            background-color: #f0e6f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5276;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .vaccination-details, .corona-status {
+            margin-top: 20px;
+        }
+
+        label, .add-more-vaccination {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .add-more-vaccination {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+    </style>
+</head>
+<body>
+    <h1>Add Vaccination Details</h1>
+    <form id="vaccination-form">
+        <div class="vaccination-details">
+            <span class="add-more-vaccination" onclick="addVaccinationField()">+ Add Vaccination</span>
+        </div>
+
+        <div class="corona-status">
+            <label for="corona-positive-date">Corona Positive Date:</label>
+            <input type="date" id="corona-positive-date" name="coronaPositiveDate">
+            <div class="error" id="error-corona-positive-date"></div>
+
+            <label for="corona-recovery-date">Corona Recovery Date:</label>
+            <input type="date" id="corona-recovery-date" name="coronaRecoveryDate">
+            <div class="error" id="error-corona-recovery-date"></div>
+        </div>
+
+        <button type="button" onclick="submitVaccinationDetails()">Submit</button>
+        <button type="button" onclick="goBack()">Back</button>
+
+    </form>
+
+    <script>
+        let vaccinationCount = 0;
+        const vaccinationDetailsContainer = document.querySelector('.vaccination-details');
+
+        function addVaccinationField() {
+            if (vaccinationCount >= 4) {
+                alert('A member can only have up to 4 vaccination records.');
+                return;
+            }
+
+            vaccinationCount++;
+            const html = `
+                    <div class="vaccination-record">
+                        <label for="vaccine-date-${vaccinationCount}">Vaccine Date #${vaccinationCount}:</label>
+                        <input type="date" id="vaccine-date-${vaccinationCount}" name="vaccineDate[]">
+                        <label for="vaccine-manufacturer-${vaccinationCount}">Manufacturer #${vaccinationCount}:</label>
+                        <select id="vaccine-manufacturer-${vaccinationCount}" name="vaccineManufacturer[]">
+                            <option value="">Select Manufacturer</option>
+                            <option value="Pfizer">Pfizer</option>
+                            <option value="Moderna">Moderna</option>
+                            <option value="AstraZeneca">AstraZeneca</option>
+                            <option value="Johnson & Johnson">Johnson & Johnson</option>
+                        </select>
+                    </div>
+                `;
+            vaccinationDetailsContainer.insertAdjacentHTML('beforeend', html);
+        }
+
+        function collectFormData() {
+            const formData = {
+                vaccinations: [],
+                coronaPositiveDate: document.getElementById('corona-positive-date').value,
+                coronaRecoveryDate: document.getElementById('corona-recovery-date').value,
+            };
+
+            for (let i = 1; i <= vaccinationCount; i++) {
+                const vaccineDate = document.getElementById(`vaccine-date-${i}`).value;
+                const vaccineManufacturer = document.getElementById(`vaccine-manufacturer-${i}`).value;
+
+                if (vaccineDate && vaccineManufacturer) {
+                    formData.vaccinations.push({
+                        date: vaccineDate,
+                        manufacturer: vaccineManufacturer,
+                    });
+                }
+            }
+
+            return formData;
+        }
+
+        async function submitVaccinationDetails() {
+            const formData = collectFormData();
+            console.log(formData);
+
+            // Example: Submitting to your server
+            try {
+                const response = await fetch('https://your-backend-api/vaccination-details', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log(result);
+                alert('Vaccination details submitted successfully.');
+                // Reset the form or redirect the user as needed
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('Failed to submit vaccination details.');
+            }
+        }
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
+<!--<script>
+    // Continue from the previous script
+    // Collects all form data and prepares it for submission
+    function collectFormData() {
+        const formData = {
+            vaccinations: [],
+            coronaPositiveDate: document.getElementById('corona-positive-date').value,
+            coronaRecoveryDate: document.getElementById('corona-recovery-date').value,
+        };
+
+        for (let i = 1; i <= vaccinationCount; i++) {
+            const vaccineDate = document.getElementById(`vaccine-date-${i}`).value;
+            const vaccineManufacturer = document.getElementById(`vaccine-manufacturer-${i}`).value;
+
+            if (vaccineDate && vaccineManufacturer) {
+                formData.vaccinations.push({
+                    date: vaccineDate,
+                    manufacturer: vaccineManufacturer,
+                });
+            }
+        }
+
+        return formData;
+    }
+
+    async function submitVaccinationDetails() {
+        const formData = collectFormData();
+        console.log(formData);
+
+        // Example: Submitting to your server
+        try {
+            const response = await fetch('https://your-backend-api/vaccination-details', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log(result);
+            alert('Vaccination details submitted successfully.');
+            // Reset the form or redirect the user as needed
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('Failed to submit vaccination details.');
+        }
+    }
+</script>-->

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+          
+            h1 {
+                text-align: center;
+                margin-top: 50px;
+                color: #333;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+                text-align: center;
+            }
+
+                ul li {
+                    display: inline-block;
+                    margin: 0 10px;
+                }
+
+                    ul li a {
+                        text-decoration: none;
+                        color: #555;
+                        padding: 10px 20px;
+                        background-color: #f8f8f8;
+                        border-radius: 5px;
+                    }
+
+                        ul li a:hover {
+                            background-color: #ddd;
+                        }
+
+            #login-form {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            label {
+                font-weight: bold;
+                color: #555;
+            }
+
+            input[type="text"] {
+                padding: 10px;
+                margin: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            button[type="submit"] {
+                padding: 10px 20px;
+                background-color: #f8f8f8;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                button[type="submit"]:hover {
+                    background-color: #ddd;
+                }
+
+            .navigation {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+                .navigation button {
+                    padding: 10px 20px;
+                    margin: 0 10px;
+                    background-color: #f8f8f8;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+
+                    .navigation button:hover {
+                        background-color: #ddd;
+                    }
+        </style>
+</head>
+
+
+<body>
+
+    <h1>Welcome to the Health Fund Corona System</h1>
+    <!-- Links to other pages -->
+    <ul>
+        <li><a href="members.html">View Members</a></li>
+        <li><a href="create-member.html">Add Member</a></li>
+    </ul>
+    <!-- Login Form -->''
+    <form id="login-form">
+        <label for="member-id">Member ID:</label>
+        <input type="text" id="member-id" name="member-id" required>
+        <button type="submit">Login</button>
+    </form>
+    <!-- JavaScript to prevent going back -->
+    <script>
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#login-form').on('submit', function (e) {
+                e.preventDefault();
+                const memberId = $('#member-id').val();
+
+                $.ajax({
+                    url: `https://localhost:7051/api/members/${memberId}`,
+                    type: 'GET',
+                    success: function (member) {
+                        // Assuming 'member' is the returned JSON object
+                        $('#member-details').html(`<p>Name: ${member.name}</p>`); // Display member details as needed
+                    },
+                    error: function (request, status, error) {
+                        $('#member-details').html(`<p>Member not found.</p>`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+

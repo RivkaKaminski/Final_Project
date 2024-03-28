@@ -1,0 +1,6 @@
+@HealthFundCoronaSystemServer_HostAddress = http://localhost:5058
+
+GET {{HealthFundCoronaSystemServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

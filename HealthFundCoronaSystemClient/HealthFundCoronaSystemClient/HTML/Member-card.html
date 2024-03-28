@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Member</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #f0e6f7; /* Light purple */
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5276; /* Dark blue */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8eef2; /* Light pink */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #1a5276; /* Dark blue */
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="file"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="file"] {
+            background-color: #fff;
+            color: #333;
+        }
+
+        button {
+            background-color: #1a5276; /* Dark blue */
+            color: #fff;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #154360; /* Darker blue */
+            }
+
+        #selected-image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #selected-image {
+            display: block;
+            width: 300px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Member</h1>
+
+    <form id="create-member-form">
+        <!-- Basic Member Information -->
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="firstName" required>
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="lastName" required>
+
+        <label for="identity-card">Identity Card:</label>
+        <input type="text" id="identity-card" name="identityCard" required>
+
+        <label for="date-of-birth">Date of Birth:</label>
+        <input type="date" id="date-of-birth" name="dateOfBirth" required>
+
+        <!-- Additional fields based on your database -->
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" required>
+
+        <label for="street-number">Street Number:</label>
+        <input type="number" id="street-number" name="streetNumber" required>
+
+        <label for="telephone">Telephone:</label>
+        <input type="tel" id="telephone" name="telephone" required>
+
+        <label for="mobile-phone">Mobile Phone:</label>
+        <input type="tel" id="mobile-phone" name="mobilePhone" required>
+
+        <label for="vaccine-date">Vaccine Date:</label>
+        <input type="date" id="vaccine-date" name="vaccineDate" required>
+
+        <!-- Photo Upload -->
+        <label for="photo-upload">Photo:</label>
+        <input type="file" id="photo-upload" name="photo" accept="image/*">
+        <div id="selected-image-container">
+            <img id="selected-image" style="display: none;">
+        </div>
+
+        <button type="button" onclick="submitMemberForm()">Save</button>
+        <button type="button" onclick="goBack()">Back</button>
+    </form>
+
+    <script>
+        document.getElementById('photo-upload').addEventListener('change', function () {
+            const file = this.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('selected-image').src = e.target.result;
+                document.getElementById('selected-image').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function submitMemberForm() {
+            const formData = new FormData(document.getElementById('create-member-form'));
+
+            // First, submit the basic member details
+            const memberData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                identityCard: formData.get('identityCard'),
+                dateOfBirth: formData.get('dateOfBirth'),
+                city: formData.get('city'),
+                street: formData.get('street'),
+                streetNumber: formData.get('streetNumber'),
+                telephone: formData.get('telephone'),
+                mobilePhone: formData.get('mobilePhone'),
+                mobilePhone: formData.get('email'),
+                vaccineDate: formData.get('vaccineDate'),
+
+               
+
+            };
+            console.log(memberData);
+            fetch('https://localhost:7051/api/members', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(memberData),
+            })
+                .then(response => response.json())
+                .then(member => {
+                    console.log("Member added:", member);
+                    memberId = member.id; // Store the memberId for later use
+
+                    // If a photo was uploaded, attempt to submit it
+                    if (formData.get('photo').name) {
+                        const photoFormData = new FormData();
+                        photoFormData.append('photo', formData.get('photo'));
+                        photoFormData.append('memberId', member.id); // Assuming the member ID is returned upon creation
+
+                        // Attempt to upload the photo
+                        return fetch('https://localhost:7051/api/memberPhotos', {
+                            method: 'PUT',
+                            body: photoFormData,
+                        })
+                            .catch(() => {
+                                console.log("Photo upload failed, but continuing with other details.");
+                                // If the photo upload fails, resolve the promise to continue the chain
+                                return Promise.resolve(new Response(null, { status: 200 }));
+                            });
+                    } else {
+                        // If no photo was uploaded, continue the chain
+                        return Promise.resolve(new Response(null, { status: 200 }));
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Photo upload was attempted but failed');
+                    }
+                    console.log("Photo uploaded or skipped");
+                    // Submit vaccination details if provided
+                    if (formData.get('vaccineDate')) {
+                        const vaccinationData = {
+                            memberId: memberId, // Use the newly created member's ID
+                            vaccineDate: formData.get('vaccineDate'),
+                            // Include other vaccination-related fields
+                        };
+
+                        return fetch('https://localhost:7051/api/vaccinations', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(vaccinationData),
+                        });
+                    }
+                })
+                .then(response => {
+                    if (response && !response.ok) {
+                        throw new Error('Vaccination details submission failed');
+                    }
+                    console.log("Vaccination details added");
+                    alert('Member, and optionally photo and vaccination details successfully added');
+                    // Redirect or clear form as needed
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                });
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            const memberId = params.get('memberId');
+
+            if (memberId) {
+                fetchMemberDetailsToUpdate(memberId);
+            } else {
+                console.error('Member ID is missing.');
+                // Handle missing memberId (e.g., redirect to member list page)
+            }
+        });
+
+        function fetchMemberDetailsToUpdate(memberId) {
+            fetch(`https://localhost:7051/api/members/${memberId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch member details');
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('first-name').value = data.firstName || '';
+                    document.getElementById('last-name').value = data.lastName || '';
+                    document.getElementById('identity-Card').value = data.identityCard || '';
+                    document.getElementById('date-Of-Birth').value = data.dateOfBirth || '';
+                    document.getElementById('city').value = data.city || '';
+                    document.getElementById('street').value = data.street || '';
+                    document.getElementById('street-Number').value = data.streetNumber || '';
+                    document.getElementById('telephone').value = data.telephone || '';
+                    document.getElementById('mobile-Phone').value = data.mobilePhone || '';
+                    document.getElementById('email').value = data.email || '';
+                    // Populate other fields similarly...
+                    // Optionally, handle the photo and vaccination details if needed
+                    
+                })
+                .catch(error => {
+                    console.error('Error fetching member details:', error);
+                    // Handle error (e.g., show error message, redirect)
+                });
+        }
+
+        // Include functions to handle form submission (update details) similarly to how you handle the add new member form
+    </script>
+
+    <div class="home-link">
+        <a href="index.html">Return to Home Page</a>
+    </div>
+</body>
+</html>
+
+

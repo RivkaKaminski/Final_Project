@@ -1,0 +1,307 @@
+﻿<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member and Corona Details</title>
+    <link rel="stylesheet" href="styles.css">-->
+<!-- Ensure you have a styles.css file -->
+<!-- Chart.js for the graph - You might need to download or link to a CDN -->
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .member-detail, .summary-view {
+            background-color: #e9ecef;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .graph-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="memberDetails">
+        <h1>Member Details</h1>-->
+<!-- Member details will be dynamically inserted here -->
+<!--</div>
+
+<div class="container" id="coronaDetails">
+    <h2>Corona Status</h2>-->
+<!-- Corona status will be dynamically inserted here -->
+<!--</div>
+
+<div class="container" id="vaccinationDetails">
+    <h2>Vaccination History</h2>-->
+<!-- Vaccination details will be dynamically inserted here -->
+<!--</div>
+
+<div class="container summary-view" id="summaryView">
+    <h2>Summary View</h2>
+    <canvas id="activePatientsGraph"></canvas>
+    <div id="notVaccinatedCount"></div>
+</div>
+
+<script src="memberDetailsScript.js"></script>-->
+<!-- Your JavaScript code here -->
+<!--</body>
+</html>-->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member and Corona Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .member-detail, .summary-view {
+            background-color: #e9ecef;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .graph-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container" id="memberDetails">
+        <h1>Member Details</h1>-->
+<!--Member details will be dynamically inserted here
+        </div>
+
+        <div class="container" id="coronaDetails">
+            <h2>Corona Status</h2>
+         Corona status will be dynamically inserted here
+        </div>
+
+        <div class="container" id="vaccinationDetails">
+            <h2>Vaccination History</h2>
+         Vaccination details will be dynamically inserted here
+        </div>
+
+        <div class="container summary-view" id="summaryView">
+            <h2>Summary View</h2>
+            <canvas id="activePatientsGraph"></canvas>
+            <div id="notVaccinatedCount"></div>
+        </div>
+
+        <script>
+            // Assume global variables for simplicity; adjust as needed.
+            let memberId = null; // This should be dynamically set based on your app's flow.
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Extract memberId from the URL or set it based on your app's logic
+                const queryParams = new URLSearchParams(window.location.search);
+                memberId = queryParams.get('memberId');
+
+                if (!memberId) {
+                    alert('Member ID is required.');
+                    return;
+                }
+
+                fetchMemberDetails(memberId);
+                fetchCoronaStatus(memberId);
+                fetchVaccinations(memberId);
+                drawActivePatientsGraph();
+                countUnvaccinatedMembers();
+            });
+
+            function fetchMemberDetails(memberId) {
+                // Adjust URL as necessary
+                fetch(`https://yourapi.com/api/members/${memberId}`)
+                    .then(response => response.json())
+                    .then(member => {
+                        // Dynamically build and insert HTML for member details
+                        const memberDetailsDiv = document.getElementById('memberDetails');
+                        // Add your dynamic HTML content here based on the 'member' object
+                    })
+                    .catch(error => console.error('Failed to fetch member details:', error));
+            }
+
+            function fetchCoronaStatus(memberId) {
+                // Adjust URL as necessary
+                fetch(`https://yourapi.com/api/coronastatus/${memberId}`)
+                    .then(response => response.json())
+                    .then(status => {
+                        // Insert HTML for corona status
+                    })
+                    .catch(error => console.error('Failed to fetch corona status:', error));
+            }
+
+            function fetchVaccinations(memberId) {
+                // Adjust URL as necessary
+                fetch(`https://yourapi.com/api/vaccinations/${memberId}`)
+                    .then(response => response.json())
+                    .then(vaccinations => {
+                        // Insert HTML for vaccinations
+                    })
+                    .catch(error => console.error('Error fetching vaccinations:', error));
+            }
+
+            function drawActivePatientsGraph() {
+                // This function should draw a graph based on active patients data.
+                // You might use a library like Chart.js. Fetch data from your API and then draw.
+            }
+
+            function countUnvaccinatedMembers() {
+                // Fetch count from your API and display it.
+            }
+
+            // Implement 'editMember' and 'deleteMember' functions based on your requirements.
+        </script>
+
+</body>
+</html>-->
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health System Home Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Loading Chart.js -->
+</head>
+<body>
+    <h1>Health System Dashboard</h1>
+
+    <!-- Links to Other Pages -->
+    <nav>
+        <ul>
+            <li><a href="architecture.html">Architectural Specification</a></li>
+            <li><a href="api_services.html">API Services Overview</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container for the Active Patients Graph -->
+    <h2>Active Patients in the Last Month</h2>
+    <canvas id="activePatientsGraph"></canvas>
+
+    <!-- Container for Showing Number of Unvaccinated Members -->
+    <h2>Unvaccinated Members Count</h2>
+    <p id="unvaccinatedMembersCount"></p>
+
+    <script>
+        // Placeholder URLs - replace with your actual API endpoints
+        const activePatientsUrl = "https://yourapi.com/api/activePatients";
+        const unvaccinatedMembersUrl = "https://yourapi.com/api/unvaccinatedMembers";
+
+        // Fetch and display the count of unvaccinated members
+        fetch(unvaccinatedMembersUrl)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('unvaccinatedMembersCount').textContent = `Total Unvaccinated Members: ${data.count}`;
+            })
+            .catch(error => console.error('Failed to fetch unvaccinated members count:', error));
+
+        // Fetch data and initialize the active patients graph
+        fetch(activePatientsUrl)
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('activePatientsGraph').getContext('2d');
+                const activePatientsGraph = new Chart(ctx, {
+                    type: 'line', // Line chart to display active patients over time
+                    data: {
+                        labels: data.dates, // Assuming 'dates' is an array of date strings
+                        datasets: [{
+                            label: 'Active Patients',
+                            data: data.patients, // Assuming 'patients' is an array of patient count corresponding to the dates
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Failed to fetch active patients data:', error));
+    </script>
+    <div class="home-link">
+        <a href="index.html">Return to Home Page</a>
+    </div>
+</body>
+</html>
+

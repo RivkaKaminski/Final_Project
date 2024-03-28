@@ -1,0 +1,1046 @@
+﻿<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <style>
+        body {
+            background-color: #f0e6f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5276;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px; /* Increased width to accommodate more fields */
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        .required {
+            color: red;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+
+        .vaccine-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Member and Vaccination Details</h1>
+    <form id="create-member-form">
+        <label for="first-name">First Name:<span class="required">*</span></label>
+        <input type="text" id="first-name" name="firstName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+        <div class="error" id="error-first-name"></div>
+
+        <label for="last-name">Last Name:<span class="required">*</span></label>
+        <input type="text" id="last-name" name="lastName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+        <div class="error" id="error-last-name"></div>
+
+        <label for="identity-card">Identity Card:<span class="required">*</span></label>
+        <input type="text" id="identity-card" name="identityCard" pattern="\d{9}" title="9 digits expected" required>
+        <div class="error" id="error-identity-card"></div>
+
+        <label for="date-of-birth">Date of Birth:<span class="required">*</span></label>
+        <input type="date" id="date-of-birth" name="dateOfBirth" max="2023-12-31" required>
+        <div class="error" id="error-date-of-birth"></div>
+
+        <label for="email">Email:<span class="required">*</span></label>
+        <input type="email" id="email" name="email" required>
+        <div class="error" id="error-email"></div>
+
+        <label for="city">City:<span class="required">*</span></label>
+        <input type="text" id="city" name="city" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+        <div class="error" id="error-city"></div>
+
+        <label for="street">Street:<span class="required">*</span></label>
+        <input type="text" id="street" name="street" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+        <div class="error" id="error-street"></div>
+
+        <label for="street-number">Street Number:<span class="required">*</span></label>
+        <input type="number" id="street-number" name="streetNumber" required>
+        <div class="error" id="error-street-number"></div>
+
+        <label for="telephone">Telephone:<span class="required">*</span></label>
+        <input type="tel" id="telephone" name="telephone" title="Valid telephone number expected" required>-->
+<!--<input type="tel" id="telephone" name="telephone" pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$" title="Valid telephone number expected" required>-->
+<!--<div class="error" id="error-telephone"></div>
+
+<label for="mobile-phone">Mobile Phone:</label>
+<input type="tel" id="mobile-phone" name="mobilePhone" required>
+<div class="error" id="error-mobile-phone"></div>-->
+<!--<label for="vaccine-date">Vaccine Date:</label>
+<input type="date" id="vaccine-date" name="vaccineDate">
+<div class="error" id="error-vaccine-date"></div>-->
+<!-- Member Details Section -->
+<!-- Existing member details inputs -->
+<!-- Vaccination Details Section -->
+<!--<div class="vaccine-section">
+    <h2>Vaccination Details</h2>-->
+<!-- Dynamically generate vaccination date inputs -->
+<!--<label for="vaccine1-date">Vaccination Date 1:</label>
+    <input type="date" id="vaccine1-date" name="vaccineDate1">
+    <div class="error" id="error-vaccine1-date"></div>
+
+    <label for="vaccine2-date">Vaccination Date 2:</label>
+    <input type="date" id="vaccine2-date" name="vaccineDate2">
+    <div class="error" id="error-vaccine2-date"></div>
+
+    <label for="vaccine3-date">Vaccination Date 3:</label>
+    <input type="date" id="vaccine3-date" name="vaccineDate3">
+    <div class="error" id="error-vaccine3-date"></div>
+
+    <label for="vaccine4-date">Vaccination Date 4:</label>
+    <input type="date" id="vaccine4-date" name="vaccineDate4">
+    <div class="error" id="error-vaccine4-date"></div>
+</div>
+<fieldset>
+    <legend>Vaccination Details:</legend>
+    <div id="vaccination-details">-->
+<!-- Dynamically add vaccination details here -->
+<!--</div>
+    <button type="button" onclick="addVaccinationField()">+ Add Vaccination</button>
+</fieldset>-->
+<!-- Corona Details -->
+<!--<label for="corona-infection-date">Corona Infection Date:</label>
+<input type="date" id="corona-infection-date" name="coronaInfectionDate">
+<label for="corona-recovery-date">Corona Recovery Date:</label>
+<input type="date" id="corona-recovery-date" name="coronaRecoveryDate">-->
+<!-- Picture Upload -->
+<!--<label for="member-photo">Member Photo:</label>
+        <input type="file" id="member-photo" name="photo" accept="image/*">
+
+        <button type="button" onclick="submitMemberForm()">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('create-member-form').addEventListener('input', function (event) {
+            validateField(event.target);
+        });
+
+        // Existing validateField function remains unchanged
+
+        function validateField(field) {
+            let errorMessage = '';
+            const errorElementId = 'error-' + field.id;
+            const errorElement = document.getElementById(errorElementId);
+
+            if (field.validity.valueMissing) {
+                errorMessage = 'This field is required.';
+            } else if (field.validity.patternMismatch) {
+                errorMessage = field.title;
+            } else if (field.validity.typeMismatch) {
+                errorMessage = 'Please enter a valid email address.';
+            } else if (field.type === 'date' && new Date(field.value) > new Date()) {
+                errorMessage = 'Date cannot be in the future.';
+            }
+
+            if (errorElement) {
+                errorElement.textContent = errorMessage;
+            }
+        }
+        function formDataToJson(formData) {
+            const object = {};
+            formData.forEach((value, key) => object[key] = value);
+            return JSON.stringify(object);
+        }
+
+        function submitMemberForm() {
+            const form = document.getElementById('create-member-form');
+            let isFormValid = true;
+
+            // Existing validation logic here
+            Array.from(form.elements).forEach(field => {
+                if (field.type !== 'button') {
+                    validateField(field);
+                    const errorElementId = 'error-' + field.id;
+                    const errorElement = document.getElementById(errorElementId);
+                    if (errorElement && errorElement.textContent !== '') {
+                        isFormValid = false;
+                    }
+                }
+            });
+            if (isFormValid) {
+                const formData = new FormData(form);
+                const jsonData = formDataToJson(formData);
+
+                fetch('https://localhost:7051/api/members', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: jsonData,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        alert('Member and vaccination details successfully added.');
+                        // Optional: Redirect or clear form here
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was a problem with yoursubmission: ' + error.message);
+                    });
+            } else {
+                alert('Please correct the errors before submitting.');
+            }
+        } function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>-->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <style>
+        body {
+            background-color: #f0e6f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5276;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .vaccination-section, .corona-section, .photo-section {
+            margin-top: 20px;
+        }
+
+        label, .add-more {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .add-more {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+    </style>
+</head>
+<body>
+    <h1>Add New Member</h1>
+    <form id="create-member-form" enctype="multipart/form-data">-->
+<!-- Personal Details -->
+<!--<div class="personal-section">
+    <label for="first-name">First Name:<span class="required">*</span></label>
+    <input type="text" id="first-name" name="firstName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+    <div class="error" id="error-first-name"></div>
+
+    <label for="last-name">Last Name:<span class="required">*</span></label>
+    <input type="text" id="last-name" name="lastName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+    <div class="error" id="error-last-name"></div>
+
+    <label for="identity-card">Identity Card:<span class="required">*</span></label>
+    <input type="text" id="identity-card" name="identityCard" pattern="\d{9}" title="9 digits expected" required>
+    <div class="error" id="error-identity-card"></div>
+
+    <label for="date-of-birth">Date of Birth:<span class="required">*</span></label>
+    <input type="date" id="date-of-birth" name="dateOfBirth" max="2023-12-31" required>
+    <div class="error" id="error-date-of-birth"></div>
+
+    <label for="email">Email:<span class="required">*</span></label>
+    <input type="email" id="email" name="email" required>
+    <div class="error" id="error-email"></div>
+
+    <label for="city">City:<span class="required">*</span></label>
+    <input type="text" id="city" name="city" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+    <div class="error" id="error-city"></div>
+
+    <label for="street">Street:<span class="required">*</span></label>
+    <input type="text" id="street" name="street" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+    <div class="error" id="error-street"></div>
+
+    <label for="street-number">Street Number:<span class="required">*</span></label>
+    <input type="number" id="street-number" name="streetNumber" required>
+    <div class="error" id="error-street-number"></div>
+
+    <label for="telephone">Telephone:<span class="required">*</span></label>
+    <input type="tel" id="telephone" name="telephone" pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$" title="Valid telephone number expected" required>
+    <div class="error" id="error-telephone"></div>
+
+    <label for="mobile-phone">Mobile Phone:</label>
+    <input type="tel" id="mobile-phone" name="mobilePhone" required>
+    <div class="error" id="error-mobile-phone"></div>
+
+</div>-->
+<!-- Vaccination Details -->
+<!--<div class="vaccination-section" id="vaccination-details-section">
+    <label>Vaccination Details:</label>
+    <span class="add-more" onclick="addVaccinationField()">+ Add Vaccination</span>
+</div>-->
+<!-- Corona Status -->
+<!--<div class="corona-section">
+    <label for="corona-infection-date">Corona Infection Date:</label>
+    <input type="date" id="corona-infection-date" name="coronaInfectionDate">
+    <div class="error" id="error-corona-infection-date"></div>
+
+    <label for="corona-recovery-date">Corona Recovery Date:</label>
+    <input type="date" id="corona-recovery-date" name="coronaRecoveryDate">
+    <div class="error" id="error-corona-recovery-date"></div>
+</div>-->
+<!-- Photo Upload -->
+<!--<div class="photo-section">
+            <label for="photo-upload">Photo:</label>
+            <input type="file" id="photo-upload" name="photo">
+        </div>
+
+        <button type="button" onclick="submitMemberForm()">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('create-member-form').addEventListener('input', function (event) {
+            validateField(event.target);
+        });
+
+        function validateField(field) {
+            // Your existing validation logic
+            let errorMessage = '';
+            const errorElementId = 'error-' + field.id;
+            const errorElement = document.getElementById(errorElementId);
+
+            if (field.validity.valueMissing) {
+                errorMessage = 'This field is required.';
+            } else if (field.validity.patternMismatch) {
+                errorMessage = field.title;
+            } else if (field.validity.typeMismatch) {
+                errorMessage = 'Please enter a valid email address.';
+            } else if (field.type === 'date' && new Date(field.value) > new Date()) {
+                errorMessage = 'Date cannot be in the future.';
+            }
+
+            if (errorElement) {
+                errorElement.textContent = errorMessage;
+            }
+        }
+
+        function addVaccinationField() {
+            let vaccinationCount = 0;
+            const maxVaccinations = 4; // Maximum number of vaccinations
+
+            function addVaccinationField() {
+                if (vaccinationCount >= maxVaccinations) {
+                    alert('Maximum number of vaccination records reached.');
+                    return;
+                }
+
+                vaccinationCount++;
+
+                const vaccinationContainer = document.getElementById('vaccination-container');
+                const vaccinationFieldSet = document.createElement('fieldset');
+                vaccinationFieldSet.innerHTML = `
+                                                <legend>Vaccination ${vaccinationCount}</legend>
+                                                <label for="vaccine-date-${vaccinationCount}">Vaccine Date:</label>
+                                                <input type="date" id="vaccine-date-${vaccinationCount}" name="vaccineDate[]">
+                                                <label for="vaccine-manufacturer-${vaccinationCount}">Manufacturer:</label>
+                                                <input type="text" id="vaccine-manufacturer-${vaccinationCount}" name="vaccineManufacturer[]">
+                                              `;
+                vaccinationContainer.appendChild(vaccinationFieldSet);
+            }
+
+            // Logic for dynamically adding vaccination fields
+        }
+
+        function formDataToJson(formData) {
+            const object = {};
+            formData.forEach((value, key) => object[key] = value);
+            return JSON.stringify(object);
+        }
+
+        function submitMemberForm() {
+            const form = document.getElementById('create-member-form');
+            let isFormValid = true;
+
+            // Validate form
+            Array.from(form.elements).forEach(field => {
+                if (field.type !== 'button') {
+                    validateField(field);
+                    const errorElementId = 'error-' + field.id;
+                    const errorElement = document.getElementById(errorElementId);
+                    if (errorElement && errorElement.textContent !== '') {
+                        isFormValid = false;
+                    }
+                }
+            });
+
+            if (!isFormValid) {
+                alert('Please correct the errors before submitting.');
+                return;
+            }
+
+            // Assuming all validations passed
+            const formData = new FormData(form);
+
+            // Example of handling the main member data submission
+            fetch('https://localhost:7051/api/members', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: formDataToJson(formData),
+            })
+                .then(response => response.json())
+                .then(memberData => {
+                    console.log('Member added', memberData);
+                    // Here, submit additional data like vaccinations, corona status, and photo
+                    // using memberData.id as needed for linking
+                    submitVaccinations(memberData.id);
+                    submitCoronaStatus(memberData.id);
+                    uploadPhoto(memberData.id);
+                })
+                .catch(error => console.error('Error adding member:', error));
+        }
+
+        function submitVaccinations(memberId) {
+            // Example vaccination submission logic
+            for (let i = 1; i <= vaccinationCount; i++) {
+                const vaccinationDate = document.getElementById(`vaccine-date-${i}`).value;
+                const manufacturer = document.getElementById(`vaccine-manufacturer-${i}`).value;
+
+                if (vaccinationDate && manufacturer) { // Ensure fields are not empty
+                    await fetch(`https://localhost:7051/api/vaccinations`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            memberId,
+                            vaccineDate: vaccinationDate,
+                            vaccineManufacturer: manufacturer
+                        }),
+                    });
+                }
+            }
+        }
+
+        function submitCoronaStatus(memberId) {
+            // Example corona status submission logic
+            const coronaInfectionDate = formData.get('coronaInfectionDate');
+            const coronaRecoveryDate = formData.get('coronaRecoveryDate');
+
+            if (coronaInfectionDate || coronaRecoveryDate) {
+                await fetch(`https://localhost:7051/api/coronastatus`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        memberId,
+                        positiveResultDate: coronaInfectionDate,
+                        recoveryDate: coronaRecoveryDate
+                    }),
+                });
+            }
+        }
+
+        function uploadPhoto(memberId) {
+            // Example photo upload logic
+            if (photo) {
+                const photoFormData = new FormData();
+                photoFormData.append('photo', photo);
+                photoFormData.append('memberId', memberId);
+
+                await fetch(`https://localhost:7051/api/memberPhotos`, { // Adjust this endpoint as needed
+                    method: 'POST',
+                    body: photoFormData,
+                    // Do not set Content-Type for FormData to let the browser set it along with the boundary
+                });
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>-->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <style>
+        body {
+            background-color: #f0e6f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5276;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .vaccination-section, .corona-section, .photo-section {
+            margin-top: 20px;
+        }
+
+        label, .add-more {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .add-more {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+    </style>-->
+<!-- Style omitted for brevity -->
+<!--</head>
+<body>
+    <h1>Add New Member</h1>
+    <form id="create-member-form" enctype="multipart/form-data">-->
+<!-- Personal Details section omitted for brevity -->
+<!--<div class="personal-section">
+    <label for="first-name">First Name:<span class="required">*</span></label>
+    <input type="text" id="first-name" name="firstName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+    <div class="error" id="error-first-name"></div>
+
+    <label for="last-name">Last Name:<span class="required">*</span></label>
+    <input type="text" id="last-name" name="lastName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+    <div class="error" id="error-last-name"></div>
+
+    <label for="identity-card">Identity Card:<span class="required">*</span></label>
+    <input type="text" id="identity-card" name="identityCard" pattern="\d{9}" title="9 digits expected" required>
+    <div class="error" id="error-identity-card"></div>
+
+    <label for="date-of-birth">Date of Birth:<span class="required">*</span></label>
+    <input type="date" id="date-of-birth" name="dateOfBirth" max="2023-12-31" required>
+    <div class="error" id="error-date-of-birth"></div>
+
+    <label for="email">Email:<span class="required">*</span></label>
+    <input type="email" id="email" name="email" required>
+    <div class="error" id="error-email"></div>
+
+    <label for="city">City:<span class="required">*</span></label>
+    <input type="text" id="city" name="city" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+    <div class="error" id="error-city"></div>
+
+    <label for="street">Street:<span class="required">*</span></label>
+    <input type="text" id="street" name="street" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+    <div class="error" id="error-street"></div>
+
+    <label for="street-number">Street Number:<span class="required">*</span></label>
+    <input type="number" id="street-number" name="streetNumber" required>
+    <div class="error" id="error-street-number"></div>
+
+    <label for="telephone">Telephone:<span class="required">*</span></label>
+    <input type="tel" id="telephone" name="telephone" pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$" title="Valid telephone number expected" required>
+    <div class="error" id="error-telephone"></div>
+
+    <label for="mobile-phone">Mobile Phone:</label>
+    <input type="tel" id="mobile-phone" name="mobilePhone" required>
+    <div class="error" id="error-mobile-phone"></div>
+
+</div>-->
+<!-- Vaccination Details -->
+<!--<div class="vaccination-section" id="vaccination-details-section">
+    <label>Vaccination Details:</label>
+    <span class="add-more" onclick="addVaccinationField()">+ Add Vaccination</span>
+</div>-->
+<!-- Corona Status -->
+<!--<div class="corona-section">
+    <label for="corona-infection-date">Corona Infection Date:</label>
+    <input type="date" id="corona-infection-date" name="coronaInfectionDate">
+    <div class="error" id="error-corona-infection-date"></div>
+
+    <label for="corona-recovery-date">Corona Recovery Date:</label>
+    <input type="date" id="corona-recovery-date" name="coronaRecoveryDate">
+    <div class="error" id="error-corona-recovery-date"></div>
+</div>-->
+<!-- Photo Upload -->
+<!--<div class="photo-section">
+    <label for="photo-upload">Photo:</label>
+    <input type="file" id="photo-upload" name="photo">
+</div>-->
+<!-- Vaccination Details Placeholder -->
+<!--<div id="vaccination-details-section">-->
+<!-- Vaccination fields will be added here -->
+<!--</div>
+        <button type="button" onclick="addVaccinationField()">Add Vaccination Record</button>
+
+        <button type="button" onclick="submitMemberForm()">Submit</button>
+    </form>
+
+    <script>
+        let vaccinationCount = 0;
+        const maxVaccinations = 4; // Set a maximum for demonstration
+
+        function addVaccinationField() {
+            if (vaccinationCount >= maxVaccinations) {
+                alert('Maximum number of vaccination records reached.');
+                return;
+            }
+
+            vaccinationCount++;
+            const vaccinationContainer = document.getElementById('vaccination-details-section');
+            const div = document.createElement('div');
+            div.innerHTML = `
+                            <label>Vaccine Date #${vaccinationCount}:</label>
+                            <input type="date" name="vaccineDate[]" required>
+                            <label>Manufacturer #${vaccinationCount}:</label>
+                            <input type="text" name="vaccineManufacturer[]" required>
+                        `;
+            vaccinationContainer.appendChild(div);
+        }
+
+        async function submitMemberForm() {
+            const form = document.getElementById('create-member-form');
+            const formData = new FormData(form);
+
+            // Assuming the base URL and endpoint for member creation
+            const response = await fetch('https://localhost:7051/api/members', {
+                method: 'POST',
+                body: formData, // FormData will be correctly processed by the server.
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                alert(`Error submitting member: ${errorMessage}`);
+                return;
+            }
+
+            const memberData = await response.json();
+            alert(`Member added with ID: ${memberData.memberId}`);
+            // Here, submit additional data like vaccinations, corona status, and photo
+            // using memberData.id as needed for linking
+            submitVaccinations(memberData.memberId);
+            submitCoronaStatus(memberData.memberId);
+            uploadPhoto(memberData.memberId);
+        }
+
+
+        function submitVaccinations(memberId) {
+            // Example vaccination submission logic
+            for (let i = 1; i <= vaccinationCount; i++) {
+                const vaccinationDate = document.getElementById(`vaccine-date-${i}`).value;
+                const manufacturer = document.getElementById(`vaccine-manufacturer-${i}`).value;
+
+                if (vaccinationDate && manufacturer) { // Ensure fields are not empty
+                    await fetch(`https://localhost:7051/api/vaccinations`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            memberId,
+                            vaccineDate: vaccinationDate,
+                            vaccineManufacturer: manufacturer
+                        }),
+                    });
+                }
+            }
+        }
+
+        function submitCoronaStatus(memberId) {
+            // Example corona status submission logic
+            const coronaInfectionDate = formData.get('coronaInfectionDate');
+            const coronaRecoveryDate = formData.get('coronaRecoveryDate');
+
+            if (coronaInfectionDate || coronaRecoveryDate) {
+                await fetch(`https://localhost:7051/api/coronastatus`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        memberId,
+                        positiveResultDate: coronaInfectionDate,
+                        recoveryDate: coronaRecoveryDate
+                    }),
+                });
+            }
+        }
+
+        function uploadPhoto(memberId) {
+            // Example photo upload logic
+            if (photo) {
+                const photoFormData = new FormData();
+                photoFormData.append('photo', photo);
+                photoFormData.append('memberId', memberId);
+
+                await fetch(`https://localhost:7051/api/memberPhotos`, { // Adjust this endpoint as needed
+                    method: 'POST',
+                    body: photoFormData,
+                    // Do not set Content-Type for FormData to let the browser set it along with the boundary
+                });
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <style>
+        body {
+            background-color: #f0e6f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5276;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .vaccination-section, .corona-section, .photo-section {
+            margin-top: 20px;
+        }
+
+        label, .add-more {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .add-more {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+        #image-preview {
+            max-width: 100px; /* Control the size of the preview */
+            max-height: 100px;
+            display: none; /* Hide the image element until a file is chosen */
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Member</h1>
+    <form id="create-member-form" enctype="multipart/form-data">
+        <!-- Personal Details -->
+        <div class="personal-section">
+            <label for="first-name">First Name:<span class="required">*</span></label>
+            <input type="text" id="first-name" name="firstName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+            <div class="error" id="error-first-name"></div>
+
+            <label for="last-name">Last Name:<span class="required">*</span></label>
+            <input type="text" id="last-name" name="lastName" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+            <div class="error" id="error-last-name"></div>
+
+            <label for="identity-card">Identity Card:<span class="required">*</span></label>
+            <input type="text" id="identity-card" name="identityCard" pattern="\d{9}" title="9 digits expected" required>
+            <div class="error" id="error-identity-card"></div>
+
+            <label for="date-of-birth">Date of Birth:<span class="required">*</span></label>
+            <input type="date" id="date-of-birth" name="dateOfBirth" max="2023-12-31" required>
+            <div class="error" id="error-date-of-birth"></div>
+
+            <label for="email">Email:<span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="error-email"></div>
+
+            <label for="city">City:<span class="required">*</span></label>
+            <input type="text" id="city" name="city" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+            <div class="error" id="error-city"></div>
+
+            <label for="street">Street:<span class="required">*</span></label>
+            <input type="text" id="street" name="street" required pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed.">
+            <div class="error" id="error-street"></div>
+
+            <label for="street-number">Street Number:<span class="required">*</span></label>
+            <input type="number" id="street-number" name="streetNumber" required>
+            <div class="error" id="error-street-number"></div>
+
+            <label for="telephone">Telephone:<span class="required">*</span></label>
+            <input type="tel" id="telephone" name="telephone" pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$" title="Valid telephone number expected" required>
+            <div class="error" id="error-telephone"></div>
+
+            <label for="mobile-phone">Mobile Phone:</label>
+            <input type="tel" id="mobile-phone" name="mobilePhone" required>
+            <div class="error" id="error-mobile-phone"></div>
+
+        </div>
+
+        <!-- Vaccination Details -->
+        <div class="vaccination-section">
+            
+            <label>Vaccination Details:</label>
+            <div id="vaccination-details-container"></div>
+            <button type="button" onclick="addVaccinationField()">+ Add Vaccination</button>
+        </div>
+
+        <!-- Corona Status -->
+        <div class="corona-section">
+            <label for="corona-infection-date">Corona Infection Date:</label>
+            <input type="date" id="corona-infection-date" name="coronaInfectionDate">
+            <div class="error" id="error-corona-infection-date"></div>
+
+            <label for="corona-recovery-date">Corona Recovery Date:</label>
+            <input type="date" id="corona-recovery-date" name="coronaRecoveryDate">
+            <div class="error" id="error-corona-recovery-date"></div>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="photo-section">
+            <label for="photo-upload">Photo:</label>
+            <input type="file" id="image-input" name="photo" onchange="previewPhoto()">
+            <img id="image-preview" class="photo-preview" style="display:none;">
+            <!--<input type="file" id="image-input" accept="image/*">
+    <img id="image-preview">-->
+
+        </div>
+        <button type="button" onclick="submitMemberForm()">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('image-input').addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('image-preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block'; // Show the image element
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        let vaccinationCount = 0;
+        const vaccinationDetailsContainer = document.getElementById('vaccination-details-container');
+        function previewPhoto() {
+            const [file] = document.getElementById('photo-upload').files;
+            if (file) {
+                const preview = document.getElementById('image-preview');
+                preview.src = URL.createObjectURL(file);
+                preview.onload = () => { URL.revokeObjectURL(preview.src) } // Free memory
+                preview.style.display = 'block';
+            }
+        }
+        function addVaccinationField() {
+            vaccinationCount++;
+            const vaccinationFieldHTML = `
+                            <div>
+                                <label for="vaccineDate${vaccinationCount}">Vaccine Date #${vaccinationCount}:</label>
+                                <input type="date" id="vaccineDate${vaccinationCount}" name="vaccineDate${vaccinationCount}">
+                                <label for="vaccineManufacturer${vaccinationCount}">Manufacturer #${vaccinationCount}:</
+                            <input type="text" id="vaccineManufacturer${vaccinationCount}" name="vaccineManufacturer${vaccinationCount}">
+                        </div>
+                    `;
+            vaccinationDetailsContainer.insertAdjacentHTML('beforeend', vaccinationFieldHTML);
+        }
+
+        async function submitMemberForm() {
+            // Convert form data to JSON
+            const formData = new FormData(document.getElementById('create-member-form'));
+            const jsonData = Object.fromEntries(formData.entries());
+            // Handle Vaccinations separately
+            jsonData.vaccinations = [];
+            for (let i = 1; i <= vaccinationCount; i++) {
+                if (formData.get(`vaccineDate${i}`) && formData.get(`vaccineManufacturer${i}`)) {
+                    jsonData.vaccinations.push({
+                        date: formData.get(`vaccineDate${i}`),
+                        manufacturer: formData.get(`vaccineManufacturer${i}`)
+                    });
+                }
+            }
+            // Remove vaccination fields from jsonData to match the expected API structure
+            for (let i = 1; i <= vaccinationCount; i++) {
+                delete jsonData[`vaccineDate${i}`];
+                delete jsonData[`vaccineManufacturer${i}`];
+            }
+            // Handle Photo Upload
+            const photo = formData.get('photo');
+            delete jsonData['photo']; // Remove photo from jsonData since it will be uploaded separately
+
+            try {
+                // Submit Member data
+                const response = await fetch('https://localhost:7051/api/members', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jsonData)
+                });
+                if (!response.ok) throw new Error('Failed to add member');
+                const memberData = await response.json();
+
+                // Submit Vaccinations
+                for (const vaccination of jsonData.vaccinations) {
+                    await fetch(`https://localhost:7051/api/vaccinations`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ memberId: memberData.id, ...vaccination })
+                    });
+                }
+
+                // Upload Photo if present
+                if (photo && photo.size > 0) {
+                    const photoFormData = new FormData();
+                    photoFormData.append('photo', photo);
+                    photoFormData.append('memberId', memberData.id);
+                    await fetch(`https://localhost:7051/api/memberPhotos`, {
+                        method: 'POST',
+                        body: photoFormData,
+                        // No headers for multipart/form-data, the browser sets it with the correct boundary
+                    });
+                }
+
+                alert('Member added successfully!');
+            } catch (error) {
+                console.error('Submission failed:', error);
+                alert('Failed to submit member details.');
+            }
+        }
+    </script>
+    <div class="home-link">
+        <a href="index.html">Return to Home Page</a>
+    </div>
+</body>
+</html>

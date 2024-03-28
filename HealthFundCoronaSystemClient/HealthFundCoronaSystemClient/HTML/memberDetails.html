@@ -1,0 +1,219 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .member-detail, .corona-detail, .vaccination-detail, .photo-detail {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+
+        .member-photo {
+            display: block;
+            max-width: 200px;
+            margin: 10px auto;
+            border-radius: 8px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-edit, .btn-update {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Member Details</h1>
+        <div class="section" id="personalInfo">
+            <h2>Personal Information</h2>
+            <div id="memberDetails"></div>
+        </div>
+        <div class="section" id="coronaInfo">
+            <h2>Details on the Coronavirus</h2>
+            <div id="vaccinationDetails"></div>
+            <div id="coronaStatus"></div>
+        </div>
+        <div class="section" id="photoSection">
+            <h2>Member Photo</h2>
+            <img id="memberPhoto" class="member-photo" src="" alt="Member photo" hidden>
+        </div>
+        <div class="action-buttons">
+            <button class="btn btn-delete" onclick="deleteMember()">Delete</button>
+            <button class="btn btn-update" onclick="updateMember()">Update</button>
+
+            <button class="btn" onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const memberId = params.get('memberId');
+
+        if (!memberId) {
+            console.error('Member ID is null or not provided in the URL.');
+            alert('Member ID is missing in the URL. Please ensure you have a valid URL.');
+        } else {
+            fetchMemberDetails(memberId);
+            fetchCoronaStatus(memberId);
+            fetchVaccinations(memberId);
+            fetchMemberPhoto(memberId);
+        }
+
+        // Additional functions like fetchMemberDetails, fetchCoronaStatus, fetchVaccinations remain unchanged
+
+
+
+        function fetchMemberDetails(id) {
+            fetch(`https://localhost:7051/api/members/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const detailsContainer = document.getElementById('memberDetails');
+                    detailsContainer.innerHTML += `
+                                    <div class="member-detail">Name: ${data.firstName} ${data.lastName}</div>
+                                    <div class="member-detail">ID: ${data.identityCard}</div>
+                                    <div class="member-detail">Address: ${data.city}, ${data.street} ${data.streetNumber}</div>
+                                    <div class="member-detail">Date of Birth: ${data.dateOfBirth}</div>
+                                    <div class="member-detail">Phone: ${data.telephone}</div>
+                                    <div class="member-detail">Mobile: ${data.mobilePhone}</div>
+                                    <div class="member-detail">Email: ${data.email}</div>
+                                `;
+                })
+                .catch(error => console.error('Failed to fetch member details:', error));
+        }
+
+        function fetchCoronaStatus(memberId) {
+            fetch(`https://localhost:7051/api/coronastatus/${memberId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const detailsContainer = document.getElementById('coronaStatus');
+                    detailsContainer.innerHTML = `
+                                    <div class="member-detail">Positive Result Date: ${data.positiveResultDate}</div>
+                                    <div class="member-detail">Recovery Date: ${data.recoveryDate}</div>`;
+                })
+                .catch(error => console.error('Error fetching corona status:', error));
+        }
+
+
+
+        function fetchVaccinations(memberId) {
+            console.log(memberId)
+            fetch(`https://localhost:7051/api/vaccinations/${memberId}`)
+                .then(response =>
+
+
+                    response.json()
+                )
+                .then(vaccinations => {
+                    console.log(vaccinations)
+                    const detailsContainer = document.getElementById('vaccinationDetails');
+                    vaccinations.forEach(vaccination => {
+                        detailsContainer.innerHTML += `
+                              <div class="member-detail">Vaccination Date: ${vaccination.vaccineDate}, Manufacturer: ${vaccination.vaccineManufacturer}</div>
+                          `;
+                    });
+                })
+                .catch(error => console.error('Error fetching vaccinations:', error));
+        }
+
+
+        function fetchMemberPhoto(memberId) {
+            fetch(`https://localhost:7051/api/memberPhoto/${memberId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch member photo');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.photoUrl) {
+                        const photoElement = document.getElementById('memberPhoto');
+                        photoElement.src = data.photoUrl;
+                        photoElement.hidden = false;
+                    }
+                })
+                .catch(error => console.error('Error fetching member photo:', error));
+        }
+
+
+        function updateMember() {
+            window.location.href = `Member-card.html?memberId=${memberId}`; // Assume this page exists for updating member info
+        }
+
+        function deleteMember() {
+            if (confirm('Are you sure you want to delete this member?')) {
+                fetch(`https://localhost:7051/api/members/${memberId}`, {
+                    method: 'DELETE',
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Failed to delete member.');
+                        alert('Member deleted successfully.');
+                        window.location.href = 'membersList.html'; // Redirect to the members list or wherever appropriate
+                    })
+                    .catch(error => {
+                        console.error('Error deleting member:', error);
+                        alert('There was an issue deleting the member.');
+                    });
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Update and other button function implementations remain unchanged
+    </script>
+    <div class="home-link">
+        <a href="index.html">Return to Home Page</a>
+    </div>
+</body>
+
+</html>

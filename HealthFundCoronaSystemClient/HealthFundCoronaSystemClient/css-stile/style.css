@@ -1,0 +1,88 @@
+﻿body {
+    background-color: #f0e6f7; /* A blend of light purple, maintaining consistency */
+    font-family: Arial, sans-serif; /* Common font across all pages */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box; /* Ensures padding does not affect the overall dimensions */
+}
+
+h1 {
+    text-align: center;
+    color: #1a5276; /* A common dark blue theme */
+    margin-top: 20px; /* Adjusted for uniformity */
+    margin-bottom: 20px; /* Ensuring consistency */
+}
+
+form {
+    background-color: #ffffff; /* Keeping forms consistently white */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Standardizing the max width */
+    margin: 20px auto; /* Centering the form */
+    padding: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    color: #555; /* Standardized label color */
+    font-weight: bold; /* Making labels bold for better readability */
+}
+
+.required {
+    color: red; /* Highlighting required fields */
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc; /* Standardizing input borders */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+    input[type="text"], input[type="date"], input[type="email"], input[type="tel"], input[type="number"] {
+        background-color: #fff; /* Ensuring input fields are white */
+        color: #333; /* Text color standardized */
+    }
+
+button {
+    background-color: #4CAF50; /* A consistent button color theme */
+    color: white;
+    cursor: pointer;
+    margin-top: 20px; /* Ensuring buttons are properly spaced */
+}
+
+    button:hover {
+        background-color: #45a049; /* A slightly darker shade on hover */
+        opacity: 0.8;
+    }
+
+.navigation, .vaccination-section, .corona-section, .photo-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem; /* Uniform error message styling */
+}
+
+#selected-image-container, #image-preview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#selected-image, #image-preview {
+    display: none; /* Hide until an image is selected */
+    max-width: 300px; /* Adjusted for better layout consistency */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-more {
+    color: #007bff;
+    cursor: pointer;
+}
+
